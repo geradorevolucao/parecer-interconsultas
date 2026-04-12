@@ -386,68 +386,80 @@
         }
 
         // --- MATEMÁTICA DOS NOVOS ESCORES ---
+                // --- CALCULADORAS E ESCORES ---
         function calcularLight() {
             const pLiq = parseFloat(document.getElementById('l_prot_liq').value); const pSer = parseFloat(document.getElementById('l_prot_ser').value);
             const lLiq = parseFloat(document.getElementById('l_ldh_liq').value); const lSer = parseFloat(document.getElementById('l_ldh_ser').value);
             const lLimit = parseFloat(document.getElementById('l_ldh_limit').value);
             const res = document.getElementById('res_light');
-
             if(!pLiq || !pSer || !lLiq || !lSer || !lLimit) { res.innerText = "Preencha todos os campos."; res.style.display='block'; return; }
-
-            const relProt = pLiq / pSer;
-            const relLdh = lLiq / lSer;
-            const limitLdh = lLiq > (0.66 * lLimit);
-
-            if(relProt > 0.5 || relLdh > 0.6 || limitLdh) {
-                res.innerText = "EXSUDATO\n(Preenche pelo menos 1 critério de Light)";
-            } else {
-                res.innerText = "TRANSUDATO\n(Não preenche nenhum critério de Light)";
-            }
+            const relProt = pLiq / pSer; const relLdh = lLiq / lSer; const limitLdh = lLiq > (0.66 * lLimit);
+            res.innerText = (relProt > 0.5 || relLdh > 0.6 || limitLdh) ? "EXSUDATO\n(Preenche pelo menos 1 critério de Light)" : "TRANSUDATO\n(Não preenche nenhum critério de Light)";
             res.style.display = 'block';
         }
 
         function calcularGASA() {
-            const aSer = parseFloat(document.getElementById('g_alb_ser').value);
-            const aAsc = parseFloat(document.getElementById('g_alb_asc').value);
+            const aSer = parseFloat(document.getElementById('g_alb_ser').value); const aAsc = parseFloat(document.getElementById('g_alb_asc').value);
             const res = document.getElementById('res_gasa');
-
             if(isNaN(aSer) || isNaN(aAsc)) { res.innerText = "Preencha ambas as albuminas."; res.style.display='block'; return; }
-
             const gasa = aSer - aAsc;
-            let text = `GASA: ${gasa.toFixed(1)}\n`;
-            if(gasa >= 1.1) text += "Compatível com Hipertensão Portal (Ex: Cirrose, ICC).";
-            else text += "Não compatível com Hipertensão Portal (Ex: Carcinomatose, TB, Pâncreas).";
-            
-            res.innerText = text; res.style.display = 'block';
-        }
-
-        function calcularKDIGO() {
-            const cBasal = parseFloat(document.getElementById('k_cr_basal').value);
-            const cAtual = parseFloat(document.getElementById('k_cr_atual').value);
-            const diur = parseInt(document.getElementById('k_diurese').value);
-            const trs = document.getElementById('k_trs').checked;
-            const res = document.getElementById('res_kdigo');
-
-            if(trs) { res.innerText = "KDIGO ESTÁGIO 3\n(Paciente em Terapia de Substituição Renal)"; res.style.display='block'; return; }
-            if(isNaN(cBasal) || isNaN(cAtual)) { res.innerText = "Preencha a Creatinina Basal e Atual."; res.style.display='block'; return; }
-
-            let estagioCr = 0;
-            if (cAtual >= (cBasal * 3.0) || cAtual >= 4.0) estagioCr = 3;
-            else if (cAtual >= (cBasal * 2.0)) estagioCr = 2;
-            else if (cAtual >= (cBasal * 1.5) || cAtual >= (cBasal + 0.3)) estagioCr = 1;
-
-            const estagioFinal = Math.max(estagioCr, diur);
-
-            if(estagioFinal === 0) res.innerText = "Sem critérios para LRA pelo KDIGO no momento.";
-            else res.innerText = `KDIGO ESTÁGIO ${estagioFinal}\n(Baseado no pior critério entre Cr e Diurese)`;
-            
+            res.innerText = `GASA: ${gasa.toFixed(1)}\n` + (gasa >= 1.1 ? "Compatível com Hipertensão Portal (Ex: Cirrose, ICC)." : "Não compatível com Hipertensão Portal (Ex: Carcinomatose, TB, Pâncreas).");
             res.style.display = 'block';
         }
 
-        // --- CALCULADORAS ANTIGAS ---
+        function calcularKDIGO() {
+            const cBasal = parseFloat(document.getElementById('k_cr_basal').value); const cAtual = parseFloat(document.getElementById('k_cr_atual').value);
+            const diur = parseInt(document.getElementById('k_diurese').value); const trs = document.getElementById('k_trs').checked;
+            const res = document.getElementById('res_kdigo');
+            if(trs) { res.innerText = "KDIGO ESTÁGIO 3\n(Paciente em Terapia de Substituição Renal)"; res.style.display='block'; return; }
+            if(isNaN(cBasal) || isNaN(cAtual)) { res.innerText = "Preencha a Creatinina Basal e Atual."; res.style.display='block'; return; }
+            let estagioCr = 0;
+            if (cAtual >= (cBasal * 3.0) || cAtual >= 4.0) estagioCr = 3; else if (cAtual >= (cBasal * 2.0)) estagioCr = 2; else if (cAtual >= (cBasal * 1.5) || cAtual >= (cBasal + 0.3)) estagioCr = 1;
+            const estagioFinal = Math.max(estagioCr, diur);
+            res.innerText = estagioFinal === 0 ? "Sem critérios para LRA pelo KDIGO no momento." : `KDIGO ESTÁGIO ${estagioFinal}\n(Baseado no pior critério entre Cr e Diurese)`;
+            res.style.display = 'block';
+        }
+
+        function calcularPadua() {
+            const checkboxes = document.querySelectorAll('.cb-padua:checked');
+            let pontos = 0;
+            checkboxes.forEach(cb => pontos += parseInt(cb.value));
+            const res = document.getElementById('res_padua');
+            res.innerText = `Pontuação Padua: ${pontos}\n` + (pontos >= 4 ? "Alto Risco de TEV. Indicação de profilaxia farmacológica." : "Baixo Risco de TEV. Profilaxia mecânica ou não indicada.");
+            res.style.display = 'block';
+        }
+
+        function calcularCaprini() {
+            const checkboxes = document.querySelectorAll('.cb-caprini:checked');
+            let pontos = 0;
+            checkboxes.forEach(cb => pontos += parseInt(cb.value));
+            const res = document.getElementById('res_caprini');
+            let conduta = pontos === 0 ? "Risco Muito Baixo (Deambulação precoce)" : pontos <= 2 ? "Risco Baixo (Profilaxia mecânica ou farmacológica)" : pontos <= 4 ? "Risco Moderado (Profilaxia farmacológica)" : "Alto Risco (Profilaxia farmacológica +/- mecânica estendida)";
+            res.innerText = `Pontuação Caprini: ${pontos}\n${conduta}`;
+            res.style.display = 'block';
+        }
+
+        function calcularPPS() {
+            const pps = parseInt(document.getElementById('s_pps').value);
+            const res = document.getElementById('res_pps');
+            let txt = `PPS: ${pps}%\n` + (pps <= 30 ? "Fase final de vida. Priorizar controle de sintomas e conforto." : pps <= 50 ? "Declínio acentuado. Necessidade de cuidados assistenciais intensivos." : "Doença em progressão, mas com funcionalidade razoável preservada.");
+            res.innerText = txt; res.style.display = 'block';
+        }
+
+        function calcularSOFA() {
+            const selects = document.querySelectorAll('.sel-sofa');
+            let pontos = 0;
+            selects.forEach(sel => pontos += parseInt(sel.value));
+            const res = document.getElementById('res_sofa');
+            res.innerText = `Escore SOFA Total: ${pontos} pontos\n` + (pontos >= 2 ? "Critério para disfunção orgânica (Sepsis-3) preenchido se associado a infecção suspeita." : "Não preenche critérios isolados para disfunção aguda (> 2pts).");
+            res.style.display = 'block';
+        }
+
         function calcularTFG() { const age = parseFloat(document.getElementById('c_tfg_idade').value); const cr = parseFloat(document.getElementById('c_tfg_cr').value); const sex = document.getElementById('c_tfg_sexo').value; const resBox = document.getElementById('res_tfg'); if(!age || !cr) { resBox.innerText = "Preencha a Idade e a Creatinina."; resBox.style.display = 'block'; resBox.style.color = '#e74c3c'; return; } const k = sex === 'F' ? 0.7 : 0.9; const alpha = sex === 'F' ? -0.241 : -0.302; const minCrK = Math.min(cr/k, 1); const maxCrK = Math.max(cr/k, 1); const femMul = sex === 'F' ? 1.012 : 1; const egfr = 142 * Math.pow(minCrK, alpha) * Math.pow(maxCrK, -1.200) * Math.pow(0.9938, age) * femMul; resBox.innerText = `TFG Estimada: ${egfr.toFixed(1)} mL/min/1.73m²`; resBox.style.color = '#16a085'; resBox.style.display = 'block'; }
-        function calcularAG() { const na = parseFloat(document.getElementById('c_ag_na').value); const cl = parseFloat(document.getElementById('c_ag_cl').value); const hco3 = parseFloat(document.getElementById('c_ag_hco3').value); const resBox = document.getElementById('res_ag'); if(isNaN(na) || isNaN(cl) || isNaN(hco3)) { resBox.innerText = "Preencha Na+, Cl- e Bicarbonato."; resBox.style.display = 'block'; resBox.style.color = '#e74c3c'; return; } const ag = na - (cl + hco3); let diag = ""; if (ag > 12) diag = "(Aumentado)"; else if (ag < 8) diag = "(Reduzido)"; else diag = "(Normal)"; resBox.innerText = `Anion Gap: ${ag.toFixed(1)} mEq/L ${diag}`; resBox.style.color = '#16a085'; resBox.style.display = 'block'; }
-        function calcularOsm() { const na = parseFloat(document.getElementById('c_osm_na').value); const gli = parseFloat(document.getElementById('c_osm_gli').value); const ur = parseFloat(document.getElementById('c_osm_ur').value); const resBox = document.getElementById('res_osm'); if(isNaN(na) || isNaN(gli) || isNaN(ur)) { resBox.innerText = "Preencha Na+, Glicose e Ureia."; resBox.style.display = 'block'; resBox.style.color = '#e74c3c'; return; } const osm = (2 * na) + (gli / 18) + (ur / 6); let diag = ""; if (osm > 295) diag = "(Hiperosmolar)"; else if (osm < 275) diag = "(Hipo-osmolar)"; else diag = "(Normal)"; resBox.innerText = `Osmolalidade: ${osm.toFixed(1)} mOsm/kg ${diag}`; resBox.style.color = '#16a085'; resBox.style.display = 'block'; }
+        
+        function calcularAG() { const na = parseFloat(document.getElementById('c_ag_na').value); const cl = parseFloat(document.getElementById('c_ag_cl').value); const hco3 = parseFloat(document.getElementById('c_ag_hco3').value); const resBox = document.getElementById('res_ag'); if(isNaN(na) || isNaN(cl) || isNaN(hco3)) { resBox.innerText = "Preencha Na+, Cl- e Bicarbonato."; resBox.style.display = 'block'; resBox.style.color = '#e74c3c'; return; } const ag = na - (cl + hco3); let diag = ag > 12 ? "(Aumentado)" : ag < 8 ? "(Reduzido)" : "(Normal)"; resBox.innerText = `Anion Gap: ${ag.toFixed(1)} mEq/L ${diag}`; resBox.style.color = '#16a085'; resBox.style.display = 'block'; }
+        
+        function calcularOsm() { const na = parseFloat(document.getElementById('c_osm_na').value); const gli = parseFloat(document.getElementById('c_osm_gli').value); const ur = parseFloat(document.getElementById('c_osm_ur').value); const resBox = document.getElementById('res_osm'); if(isNaN(na) || isNaN(gli) || isNaN(ur)) { resBox.innerText = "Preencha Na+, Glicose e Ureia."; resBox.style.display = 'block'; resBox.style.color = '#e74c3c'; return; } const osm = (2 * na) + (gli / 18) + (ur / 6); let diag = osm > 295 ? "(Hiperosmolar)" : osm < 275 ? "(Hipo-osmolar)" : "(Normal)"; resBox.innerText = `Osmolalidade: ${osm.toFixed(1)} mOsm/kg ${diag}`; resBox.style.color = '#16a085'; resBox.style.display = 'block'; }
 
         // --- LÓGICA DA EVOLUÇÃO (Omitida por espaço, mantive intacta no código HTML) ---
         const bd = { complexas: { problemas: [], patologica: [], social: [], cirurgica: [], familiar: [], medicamentosa: [], alergias: [], internacoes: [] }, simples: { imagens: [], laboratoriais: [], hd: [], condutas: [] } };
