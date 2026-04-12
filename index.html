@@ -84,7 +84,7 @@
     <div id="screen-formulas" class="screen">
         <div class="hub-grid">
             <button class="hub-btn" onclick="navegar('screen-calculadoras')" style="background-color: #1abc9c;">🔢 CALCULADORAS<br><span style="font-size:11px;font-weight:normal;">TFG, FeNa, etc.</span></button>
-            <button class="hub-btn" onclick="navegar('screen-escores')" style="background-color: #e74c3c;">📊 ESCORES<br><span style="font-size:11px;font-weight:normal;">20 Escores Clínicos</span></button>
+            <button class="hub-btn" onclick="navegar('screen-escores')" style="background-color: #e74c3c;">📊 ESCORES<br><span style="font-size:11px;font-weight:normal;">Escores Clínicos</span></button>
         </div>
     </div>
 
@@ -139,7 +139,6 @@
     <div id="e-light" class="screen">
         <div class="card">
             <h2>Critérios de Light (Derrame Pleural)</h2>
-            <p style="font-size: 13px; color: #666;">Diferenciação entre Transudato e Exsudato.</p>
             <div class="row"><div><label>Proteína no Líquido (g/dL)</label><input type="number" id="l_prot_liq"></div><div><label>Proteína Sérica (g/dL)</label><input type="number" id="l_prot_ser"></div></div>
             <div class="row"><div><label>LDH no Líquido (U/L)</label><input type="number" id="l_ldh_liq"></div><div><label>LDH Sérico (U/L)</label><input type="number" id="l_ldh_ser"></div></div>
             <div class="row"><div><label>Limite Superior LDH Sérico (U/L)</label><input type="number" id="l_ldh_limit" placeholder="Ex: 250"></div></div>
@@ -150,11 +149,8 @@
 
     <div id="e-gasa" class="screen">
         <div class="card">
-            <h2>GASA (Gradiente Albumina Soro-Ascite)</h2>
-            <div class="row">
-                <div><label>Albumina Sérica (g/dL)</label><input type="number" id="g_alb_ser" step="0.1"></div>
-                <div><label>Albumina Ascítica (g/dL)</label><input type="number" id="g_alb_asc" step="0.1"></div>
-            </div>
+            <h2>GASA (Gradiente Albumina)</h2>
+            <div class="row"><div><label>Albumina Sérica (g/dL)</label><input type="number" id="g_alb_ser" step="0.1"></div><div><label>Albumina Ascítica (g/dL)</label><input type="number" id="g_alb_asc" step="0.1"></div></div>
             <button class="btn-gerar" style="background-color: #c0392b; padding: 12px; margin-top: 16px;" onclick="calcularGASA()">Calcular GASA</button>
             <div id="res_gasa" class="resultado-calc" style="background-color: #fdedec; color: #c0392b;"></div>
         </div>
@@ -162,30 +158,19 @@
 
     <div id="e-kdigo" class="screen">
         <div class="card">
-            <h2>Classificação KDIGO (LRA)</h2>
-            <div class="row">
-                <div><label>Cr Basal (mg/dL)</label><input type="number" id="k_cr_basal" step="0.1"></div>
-                <div><label>Cr Atual (mg/dL)</label><input type="number" id="k_cr_atual" step="0.1"></div>
-            </div>
+            <h2>KDIGO (LRA)</h2>
+            <div class="row"><div><label>Cr Basal (mg/dL)</label><input type="number" id="k_cr_basal" step="0.1"></div><div><label>Cr Atual (mg/dL)</label><input type="number" id="k_cr_atual" step="0.1"></div></div>
             <label>Critério de Débito Urinário (Opcional)</label>
-            <select id="k_diurese">
-                <option value="0">Não avaliado / Diurese mantida</option>
-                <option value="1">< 0.5 mL/kg/h por 6-12 horas</option>
-                <option value="2">< 0.5 mL/kg/h por ≥ 12 horas</option>
-                <option value="3">< 0.3 mL/kg/h por ≥ 24h OU Anúria ≥ 12h</option>
-            </select>
-            <label style="display:flex; align-items:center; gap:8px; margin-top:12px; font-weight:normal;">
-                <input type="checkbox" id="k_trs" style="width:auto; margin:0;"> Paciente em Terapia de Substituição Renal (Diálise)?
-            </label>
+            <select id="k_diurese"><option value="0">Não avaliado / Diurese mantida</option><option value="1">< 0.5 mL/kg/h por 6-12 horas</option><option value="2">< 0.5 mL/kg/h por ≥ 12 horas</option><option value="3">< 0.3 mL/kg/h por ≥ 24h OU Anúria ≥ 12h</option></select>
+            <label style="display:flex; align-items:center; gap:8px; margin-top:12px; font-weight:normal;"><input type="checkbox" id="k_trs" style="width:auto; margin:0;"> Paciente em Diálise?</label>
             <button class="btn-gerar" style="background-color: #c0392b; padding: 12px; margin-top: 16px;" onclick="calcularKDIGO()">Classificar KDIGO</button>
             <div id="res_kdigo" class="resultado-calc" style="background-color: #fdedec; color: #c0392b;"></div>
         </div>
     </div>
-    
+
     <div id="e-padua" class="screen">
         <div class="card">
             <h2>Escore de Padua (TEV Clínico)</h2>
-            <p style="font-size: 13px; color: #666;">Selecione os fatores presentes:</p>
             <div style="display:flex; flex-direction:column; gap:8px;">
                 <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-padua" value="3"> Câncer Ativo (+3)</label>
                 <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-padua" value="3"> História prévia de TEV (+3)</label>
@@ -207,35 +192,14 @@
     <div id="e-caprini" class="screen">
         <div class="card">
             <h2>Escore de Caprini (TEV Cirúrgico)</h2>
-            <p style="font-size: 13px; color: #666;">Fatores de risco divididos por peso. Selecione todos que se aplicam:</p>
-            
             <h3 style="font-size: 13px;">Fatores de 5 Pontos</h3>
-            <div style="display:flex; flex-direction:column; gap:4px;">
-                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-caprini" value="5"> AVC, Artroplastia eletiva, Trauma múltiplo ou Lesão medular (< 1 mês)</label>
-            </div>
-
+            <div style="display:flex; flex-direction:column; gap:4px;"><label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-caprini" value="5"> AVC, Artroplastia eletiva, Trauma múltiplo ou Lesão medular (< 1 mês)</label></div>
             <h3 style="font-size: 13px;">Fatores de 3 Pontos</h3>
-            <div style="display:flex; flex-direction:column; gap:4px;">
-                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-caprini" value="3"> Idade ≥ 75 anos</label>
-                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-caprini" value="3"> História pessoal ou familiar de TEV / Trombofilia</label>
-            </div>
-
+            <div style="display:flex; flex-direction:column; gap:4px;"><label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-caprini" value="3"> Idade ≥ 75 anos</label><label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-caprini" value="3"> História pessoal ou familiar de TEV / Trombofilia</label></div>
             <h3 style="font-size: 13px;">Fatores de 2 Pontos</h3>
-            <div style="display:flex; flex-direction:column; gap:4px;">
-                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-caprini" value="2"> Idade 60-74 anos</label>
-                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-caprini" value="2"> Cirurgia de grande porte (> 45 min)</label>
-                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-caprini" value="2"> Câncer (presente ou prévio)</label>
-                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-caprini" value="2"> Paciente acamado (> 72h) ou Acesso venoso central</label>
-            </div>
-
+            <div style="display:flex; flex-direction:column; gap:4px;"><label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-caprini" value="2"> Idade 60-74 anos</label><label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-caprini" value="2"> Cirurgia de grande porte (> 45 min)</label><label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-caprini" value="2"> Câncer (presente ou prévio)</label><label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-caprini" value="2"> Paciente acamado (> 72h) ou Acesso venoso central</label></div>
             <h3 style="font-size: 13px;">Fatores de 1 Ponto</h3>
-            <div style="display:flex; flex-direction:column; gap:4px;">
-                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-caprini" value="1"> Idade 41-59 anos</label>
-                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-caprini" value="1"> Pequena cirurgia, IMC > 25, Edema de MMII, Varizes</label>
-                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-caprini" value="1"> Gravidez, Puerpério, Anticoncepcional ou TRH</label>
-                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-caprini" value="1"> Sepse, Doença Pulmonar grave, IAM ou ICC</label>
-            </div>
-
+            <div style="display:flex; flex-direction:column; gap:4px;"><label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-caprini" value="1"> Idade 41-59 anos</label><label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-caprini" value="1"> Pequena cirurgia, IMC > 25, Edema de MMII, Varizes</label><label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-caprini" value="1"> Gravidez, Puerpério, Anticoncepcional ou TRH</label><label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-caprini" value="1"> Sepse, Doença Pulmonar grave, IAM ou ICC</label></div>
             <button class="btn-gerar" style="background-color: #c0392b; padding: 12px; margin-top: 16px;" onclick="calcularCaprini()">Calcular Caprini</button>
             <div id="res_caprini" class="resultado-calc" style="background-color: #fdedec; color: #c0392b;"></div>
         </div>
@@ -250,7 +214,7 @@
                 <option value="90">90% - Deambulatório, evidência de doença leve</option>
                 <option value="80">80% - Deambulatório, evidência de doença</option>
                 <option value="70">70% - Deambulatório reduzido, autocuidado mantido</option>
-                <option value="60">60% - Deambulatório reduzido, precisa de auxílio ocasional</option>
+                <option value="60">60% - Deambulatório reduzido, precisa auxílio ocasional</option>
                 <option value="50">50% - Senta/Deita a maior parte, auxílio considerável</option>
                 <option value="40">40% - Principalmente deitado, auxílio principal</option>
                 <option value="30">30% - Totalmente acamado, cuidado total, sonolento</option>
@@ -265,62 +229,18 @@
     <div id="e-sofa" class="screen">
         <div class="card">
             <h2>Escore SOFA (Sepse)</h2>
-            <p style="font-size: 13px; color: #666;">Avaliação de disfunção orgânica (Sepsis-3). Selecione a pior variável do dia.</p>
-            
             <label>Respiratório (PaO2/FiO2)</label>
-            <select id="sofa_resp" class="sel-sofa">
-                <option value="0">≥ 400</option>
-                <option value="1">< 400</option>
-                <option value="2">< 300</option>
-                <option value="3">< 200 (com suporte respiratório)</option>
-                <option value="4">< 100 (com suporte respiratório)</option>
-            </select>
-
+            <select id="sofa_resp" class="sel-sofa"><option value="0">≥ 400</option><option value="1">< 400</option><option value="2">< 300</option><option value="3">< 200 (com suporte)</option><option value="4">< 100 (com suporte)</option></select>
             <label>Coagulação (Plaquetas x10³/µL)</label>
-            <select id="sofa_coag" class="sel-sofa">
-                <option value="0">≥ 150</option>
-                <option value="1">< 150</option>
-                <option value="2">< 100</option>
-                <option value="3">< 50</option>
-                <option value="4">< 20</option>
-            </select>
-
+            <select id="sofa_coag" class="sel-sofa"><option value="0">≥ 150</option><option value="1">< 150</option><option value="2">< 100</option><option value="3">< 50</option><option value="4">< 20</option></select>
             <label>Fígado (Bilirrubina mg/dL)</label>
-            <select id="sofa_fig" class="sel-sofa">
-                <option value="0">< 1.2</option>
-                <option value="1">1.2 - 1.9</option>
-                <option value="2">2.0 - 5.9</option>
-                <option value="3">6.0 - 11.9</option>
-                <option value="4">> 12.0</option>
-            </select>
-
+            <select id="sofa_fig" class="sel-sofa"><option value="0">< 1.2</option><option value="1">1.2 - 1.9</option><option value="2">2.0 - 5.9</option><option value="3">6.0 - 11.9</option><option value="4">> 12.0</option></select>
             <label>Cardiovascular (PAM / DVA)</label>
-            <select id="sofa_cardio" class="sel-sofa">
-                <option value="0">PAM ≥ 70 mmHg</option>
-                <option value="1">PAM < 70 mmHg</option>
-                <option value="2">Dopamina ≤ 5 ou Dobutamina (qualquer dose)</option>
-                <option value="3">Dopamina > 5, Epi ≤ 0.1, Nora ≤ 0.1</option>
-                <option value="4">Dopamina > 15, Epi > 0.1, Nora > 0.1</option>
-            </select>
-
-            <label>SNC (Escala de Coma de Glasgow)</label>
-            <select id="sofa_snc" class="sel-sofa">
-                <option value="0">15</option>
-                <option value="1">13 - 14</option>
-                <option value="2">10 - 12</option>
-                <option value="3">6 - 9</option>
-                <option value="4">< 6</option>
-            </select>
-
+            <select id="sofa_cardio" class="sel-sofa"><option value="0">PAM ≥ 70 mmHg</option><option value="1">PAM < 70 mmHg</option><option value="2">Dopamina ≤ 5 ou Dobutamina</option><option value="3">Dopamina > 5, Epi ≤ 0.1, Nora ≤ 0.1</option><option value="4">Dopamina > 15, Epi > 0.1, Nora > 0.1</option></select>
+            <label>SNC (Glasgow)</label>
+            <select id="sofa_snc" class="sel-sofa"><option value="0">15</option><option value="1">13 - 14</option><option value="2">10 - 12</option><option value="3">6 - 9</option><option value="4">< 6</option></select>
             <label>Renal (Creatinina ou Diurese)</label>
-            <select id="sofa_renal" class="sel-sofa">
-                <option value="0">Cr < 1.2</option>
-                <option value="1">Cr 1.2 - 1.9</option>
-                <option value="2">Cr 2.0 - 3.4</option>
-                <option value="3">Cr 3.5 - 4.9 ou Diurese < 500 mL/d</option>
-                <option value="4">Cr > 5.0 ou Diurese < 200 mL/d</option>
-            </select>
-
+            <select id="sofa_renal" class="sel-sofa"><option value="0">Cr < 1.2</option><option value="1">Cr 1.2 - 1.9</option><option value="2">Cr 2.0 - 3.4</option><option value="3">Cr 3.5 - 4.9 ou Diurese < 500 mL/d</option><option value="4">Cr > 5.0 ou Diurese < 200 mL/d</option></select>
             <button class="btn-gerar" style="background-color: #c0392b; padding: 12px; margin-top: 16px;" onclick="calcularSOFA()">Calcular SOFA</button>
             <div id="res_sofa" class="resultado-calc" style="background-color: #fdedec; color: #c0392b;"></div>
         </div>
@@ -331,10 +251,9 @@
 
     <div id="screen-evolucao" class="screen">
         <div class="card">
-                    <h2>Etapa 1: Identificação</h2>
+            <h2>Etapa 1: Identificação</h2>
             <label>Nome do Paciente</label>
             <input type="text" id="nome" placeholder="Ex: João da Silva">
-            
             <div class="row">
                 <div><label>Leito</label><input type="text" id="leito"></div>
                 <div><label>Idade</label><input type="number" id="idade"></div>
@@ -346,11 +265,10 @@
                     </select>
                 </div>
             </div>
-            
             <div class="row">
                 <div><label>Data de Internação</label><input type="date" id="dataInternacao"></div>
             </div>
-
+        </div>
         <div class="card"><h2>Etapa 2: Situação e Contexto</h2><label>Situação (Lista de Problemas)</label><div class="input-com-botao"><input type="text" id="in_problemas" onkeypress="verificarEnter(event, 'complexa', 'problemas')"><button class="btn-add" onclick="addComplexo('problemas')">+</button></div><ul id="ui_problemas" class="lista-itens"></ul><label style="margin-top: 20px;">Contexto</label><textarea id="contexto" rows="4"></textarea></div>
         <div class="card"><h2>Etapa 3: Histórico</h2><label>História Patológica</label><div class="input-com-botao"><input type="text" id="in_patologica" onkeypress="verificarEnter(event, 'complexa', 'patologica')"><button class="btn-add" onclick="addComplexo('patologica')">+</button></div><ul id="ui_patologica" class="lista-itens"></ul><label>Social</label><div class="input-com-botao"><input type="text" id="in_social" onkeypress="verificarEnter(event, 'complexa', 'social')"><button class="btn-add" onclick="addComplexo('social')">+</button></div><ul id="ui_social" class="lista-itens"></ul><label>Cirúrgica</label><div class="input-com-botao"><input type="text" id="in_cirurgica" onkeypress="verificarEnter(event, 'complexa', 'cirurgica')"><button class="btn-add" onclick="addComplexo('cirurgica')">+</button></div><ul id="ui_cirurgica" class="lista-itens"></ul><label>Familiar</label><div class="input-com-botao"><input type="text" id="in_familiar" onkeypress="verificarEnter(event, 'complexa', 'familiar')"><button class="btn-add" onclick="addComplexo('familiar')">+</button></div><ul id="ui_familiar" class="lista-itens"></ul><label>Meds</label><div class="input-com-botao"><input type="text" id="in_medicamentosa" onkeypress="verificarEnter(event, 'complexa', 'medicamentosa')"><button class="btn-add" onclick="addComplexo('medicamentosa')">+</button></div><ul id="ui_medicamentosa" class="lista-itens"></ul><label>Alergias</label><div class="input-com-botao"><input type="text" id="in_alergias" onkeypress="verificarEnter(event, 'complexa', 'alergias')"><button class="btn-add" onclick="addComplexo('alergias')">+</button></div><ul id="ui_alergias" class="lista-itens"></ul><label>Internações</label><div class="input-com-botao"><input type="text" id="in_internacoes" onkeypress="verificarEnter(event, 'complexa', 'internacoes')"><button class="btn-add" onclick="addComplexo('internacoes')">+</button></div><ul id="ui_internacoes" class="lista-itens"></ul></div>
         <div class="card">
@@ -365,7 +283,8 @@
             <div class="lab-group"><div class="row"><div style="flex: 1;"><label>Rel. P/C</label><input type="text" id="l_RelPC"></div></div><label>Outros Exames</label><div class="input-com-botao"><input type="text" id="l_Outros"><button class="btn-add" onclick="addLaboratorio()">+</button></div></div><ul id="ui_laboratoriais" class="lista-itens"></ul>
         </div>
         <div class="card">
-            <h2>Etapa 5: Avaliação</h2>
+            <h2>Etapa 5: Avaliação Diária e Exame Físico</h2>
+            <label>Avaliação Clínica</label><textarea id="avaliacaoClinica" rows="4"></textarea>
             <h3>Sinais Vitais</h3><div class="lab-grid" style="grid-template-columns: repeat(4, 1fr);"><div><label>FC</label><input type="number" id="sv_FC"></div><div><label>PA</label><input type="text" id="sv_PA"></div><div><label>SpO2</label><input type="number" id="sv_SpO2"></div><div><label>FR</label><input type="number" id="sv_FR"></div><div><label>GLASGOW</label><input type="number" id="sv_Glasgow"></div><div><label>Temp</label><input type="number" id="sv_Temp"></div><div><label>TEC</label><input type="number" id="sv_TEC"></div><div><label>Diur</label><input type="text" id="sv_Diurese"></div></div>
             <h3>Exame Físico</h3><label>Ect</label><textarea id="ef_Ect" rows="2">Bom estado geral, corado, hidratado, acianótico, anictérico.</textarea><label>AR</label><textarea id="ef_AR" rows="2">MV universalmente audível, sem ruídos adventícios.</textarea><label>ACV</label><textarea id="ef_ACV" rows="2">Ritmo cardíaco regular em 2 tempos, bulhas normofonéticas, sem sopros.</textarea><label>ABD</label><textarea id="ef_ABD" rows="2">Plano, flácido, indolor à palpação, RHA presentes.</textarea><label>MMII</label><textarea id="ef_MMII" rows="2">Sem edemas, panturrilhas livres, pulsos presentes e simétricos.</textarea>
         </div>
@@ -386,6 +305,10 @@
             'e-light': { titulo: 'Critérios de Light', voltarPara: 'screen-escores' },
             'e-gasa': { titulo: 'GASA', voltarPara: 'screen-escores' },
             'e-kdigo': { titulo: 'KDIGO', voltarPara: 'screen-escores' },
+            'e-padua': { titulo: 'Escore de Padua', voltarPara: 'screen-escores' },
+            'e-caprini': { titulo: 'Escore de Caprini', voltarPara: 'screen-escores' },
+            'e-pps': { titulo: 'PPS', voltarPara: 'screen-escores' },
+            'e-sofa': { titulo: 'Escore SOFA', voltarPara: 'screen-escores' },
             'screen-prescricoes': { titulo: 'Prescrições', voltarPara: 'screen-hub' },
             'screen-pendencias': { titulo: 'Pendências', voltarPara: 'screen-hub' }
         };
@@ -399,8 +322,7 @@
             window.scrollTo(0, 0);
         }
 
-        // --- MATEMÁTICA DOS NOVOS ESCORES ---
-                // --- CALCULADORAS E ESCORES ---
+        // --- CALCULADORAS E ESCORES ---
         function calcularLight() {
             const pLiq = parseFloat(document.getElementById('l_prot_liq').value); const pSer = parseFloat(document.getElementById('l_prot_ser').value);
             const lLiq = parseFloat(document.getElementById('l_ldh_liq').value); const lSer = parseFloat(document.getElementById('l_ldh_ser').value);
@@ -470,12 +392,10 @@
         }
 
         function calcularTFG() { const age = parseFloat(document.getElementById('c_tfg_idade').value); const cr = parseFloat(document.getElementById('c_tfg_cr').value); const sex = document.getElementById('c_tfg_sexo').value; const resBox = document.getElementById('res_tfg'); if(!age || !cr) { resBox.innerText = "Preencha a Idade e a Creatinina."; resBox.style.display = 'block'; resBox.style.color = '#e74c3c'; return; } const k = sex === 'F' ? 0.7 : 0.9; const alpha = sex === 'F' ? -0.241 : -0.302; const minCrK = Math.min(cr/k, 1); const maxCrK = Math.max(cr/k, 1); const femMul = sex === 'F' ? 1.012 : 1; const egfr = 142 * Math.pow(minCrK, alpha) * Math.pow(maxCrK, -1.200) * Math.pow(0.9938, age) * femMul; resBox.innerText = `TFG Estimada: ${egfr.toFixed(1)} mL/min/1.73m²`; resBox.style.color = '#16a085'; resBox.style.display = 'block'; }
-        
         function calcularAG() { const na = parseFloat(document.getElementById('c_ag_na').value); const cl = parseFloat(document.getElementById('c_ag_cl').value); const hco3 = parseFloat(document.getElementById('c_ag_hco3').value); const resBox = document.getElementById('res_ag'); if(isNaN(na) || isNaN(cl) || isNaN(hco3)) { resBox.innerText = "Preencha Na+, Cl- e Bicarbonato."; resBox.style.display = 'block'; resBox.style.color = '#e74c3c'; return; } const ag = na - (cl + hco3); let diag = ag > 12 ? "(Aumentado)" : ag < 8 ? "(Reduzido)" : "(Normal)"; resBox.innerText = `Anion Gap: ${ag.toFixed(1)} mEq/L ${diag}`; resBox.style.color = '#16a085'; resBox.style.display = 'block'; }
-        
         function calcularOsm() { const na = parseFloat(document.getElementById('c_osm_na').value); const gli = parseFloat(document.getElementById('c_osm_gli').value); const ur = parseFloat(document.getElementById('c_osm_ur').value); const resBox = document.getElementById('res_osm'); if(isNaN(na) || isNaN(gli) || isNaN(ur)) { resBox.innerText = "Preencha Na+, Glicose e Ureia."; resBox.style.display = 'block'; resBox.style.color = '#e74c3c'; return; } const osm = (2 * na) + (gli / 18) + (ur / 6); let diag = osm > 295 ? "(Hiperosmolar)" : osm < 275 ? "(Hipo-osmolar)" : "(Normal)"; resBox.innerText = `Osmolalidade: ${osm.toFixed(1)} mOsm/kg ${diag}`; resBox.style.color = '#16a085'; resBox.style.display = 'block'; }
 
-        // --- LÓGICA DA EVOLUÇÃO (Omitida por espaço, mantive intacta no código HTML) ---
+        // --- LÓGICA DA EVOLUÇÃO ---
         const bd = { complexas: { problemas: [], patologica: [], social: [], cirurgica: [], familiar: [], medicamentosa: [], alergias: [], internacoes: [] }, simples: { imagens: [], laboratoriais: [], hd: [], condutas: [] } };
         const txtM = "Avalio paciente em leito, vígil, lúcido e orientado, comunicativo, estável hemodinamicamente, eupneico em ar ambiente. Diurese preservada. Sem queixas no momento.";
         const txtF = "Avalio paciente em leito, vígil, lúcida e orientada, comunicativa, estável hemodinamicamente, eupneica em ar ambiente. Diurese preservada. Sem queixas no momento.";
@@ -496,20 +416,16 @@
         function formatarData(d) { const p = d.split('-'); return `${p[2]}/${p[1]}/${p[0]}`; }
         function calcDias(d) { if (!d) return "NC"; const dAd = new Date(d.split('-')[0], d.split('-')[1] - 1, d.split('-')[2]); const hj = new Date(); hj.setHours(0,0,0,0); dAd.setHours(0,0,0,0); const diff = Math.floor((hj - dAd) / 86400000); return diff >= 0 ? diff + " dias" : "Futuro"; }
         function pComp(chave, v) { if(bd.complexas[chave].length === 0) return v; return bd.complexas[chave].map(i => { let t = "- " + i.titulo; if(i.detalhes.trim()) t += "\n  • " + i.detalhes.trim().split('\n').filter(l=>l).join('\n  • '); return t; }).join('\n'); }
-        function pSimp(chave, v) { return bd.simples[chave].length === 0 ? v : bd.simples[chave].map((i, idx) => `${idx + 1}. ${i}`).join('\n'); 
-        function gerarParecer() {
-            // Título genérico para evolução padrão
+        function pSimp(chave, v) { return bd.simples[chave].length === 0 ? v : bd.simples[chave].map((i, idx) => `${idx + 1}. ${i}`).join('\n'); }
+        
+        function gerarParecer() { 
             const tituloGeral = "EVOLUÇÃO MÉDICA";
-            
-            // Sinais Vitais com Unidades
-            let sv = []; 
-            const ids = ['FC','PA','SpO2','FR','Glasgow','Temp','TEC','Diurese']; 
-            const un = ['bpm','mmHg','%','irpm','','ºC','seg','ml']; 
-            ids.forEach((id, i) => { 
-                const v = document.getElementById('sv_' + id).value; 
-                if(v) sv.push(`${id.toUpperCase()} ${v}${un[i]}`); 
-            });const txt = `--- ${esp} ---\n\n1. IDENTIFICAÇÃO\nPaciente: ${document.getElementById('nome').value || "Não informado"} | Idade: ${document.getElementById('idade').value || "---"} | Leito: ${document.getElementById('leito').value || "---"}\nData Int./1ª Cons.: ${document.getElementById('dataInternacao').value ? formatarData(document.getElementById('dataInternacao').value) : "NC"} (${calcDias(document.getElementById('dataInternacao').value)})\nInício Acompanhamento: ${dtAcomp ? formatarData(dtAcomp) : "NC"} (Acompanhamento no ${tAcomp})\n\n2. SITUAÇÃO E CONTEXTO\nContexto / Resumo:\n${document.getElementById('contexto').value || "Nenhum contexto adicionado."}\n\nLista de Problemas Ativos:\n${pComp('problemas', 'Nenhum problema listado')}\n\n3. HISTÓRICO PREGRESSO\n- H. Patológica:\n${pComp('patologica', 'Nega / Não relatado')}\n- H. Social:\n${pComp('social', 'Nega / Não relatado')}\n- H. Cirúrgica:\n${pComp('cirurgica', 'Nega / Não relatado')}\n- H. Familiar:\n${pComp('familiar', 'Nega / Não relatado')}\n- Medicamentos Uso Domiciliar:\n${pComp('medicamentosa', 'Nega / Não relatado')}\n- Alergias:\n${pComp('alergias', 'Nega / Não relatado')}\n- Histórico de Internações:\n${pComp('internacoes', 'Nega / Não relatado')}\n\n4. EXAMES\nLaboratoriais:\n${bd.simples.laboratoriais.length > 0 ? bd.simples.laboratoriais.join('\n') : 'Sem exames laboratoriais.'}\n\nImagem:\n${pSimp('imagens', 'Sem exames de imagem listados.')}\n\n5. AVALIAÇÃO DIÁRIA E EXAME FÍSICO\nAvaliação Clínica:\n${document.getElementById('avaliacaoClinica').value}\n\nSinais Vitais: ${sv.length > 0 ? sv.join(', ') : "Não aferidos."}\n\nExame Físico:\nEctoscopia: ${document.getElementById('ef_Ect').value}\nAR: ${document.getElementById('ef_AR').value}\nACV: ${document.getElementById('ef_ACV').value}\nABD: ${document.getElementById('ef_ABD').value}\nMMII: ${document.getElementById('ef_MMII').value}\n\n6. HIPÓTESES DIAGNÓSTICAS\n${pSimp('hd', 'Sem hipóteses listadas.')}\n\n7. CONDUTAS / PLANO\n${pSimp('condutas', 'Sem condutas listadas.')}`; document.getElementById('textoFinal').value = txt; document.getElementById('resultadoArea').style.display = 'block'; document.getElementById('btnCopiar').style.display = 'block'; document.getElementById('resultadoArea').scrollIntoView({behavior: "smooth"}); }
+            let sv = []; const ids = ['FC','PA','SpO2','FR','Glasgow','Temp','TEC','Diurese']; const un = ['bpm','mmHg','%','irpm','','ºC','seg','ml']; ids.forEach((id, i) => { const v = document.getElementById('sv_' + id).value; if(v) sv.push(`${id.toUpperCase()} ${v}${un[i]}`); }); 
+            const txt = `--- ${tituloGeral} ---\n\n1. IDENTIFICAÇÃO\nPaciente: ${document.getElementById('nome').value || "Não informado"} | Idade: ${document.getElementById('idade').value || "---"} | Leito: ${document.getElementById('leito').value || "---"}\nData de Internação: ${document.getElementById('dataInternacao').value ? formatarData(document.getElementById('dataInternacao').value) : "NC"} (${calcDias(document.getElementById('dataInternacao').value)})\n\n2. SITUAÇÃO E CONTEXTO\nContexto / Resumo:\n${document.getElementById('contexto').value || "Nenhum contexto adicionado."}\n\nLista de Problemas Ativos:\n${pComp('problemas', 'Nenhum problema listado')}\n\n3. HISTÓRICO PREGRESSO\n- H. Patológica:\n${pComp('patologica', 'Nega / Não relatado')}\n- H. Social:\n${pComp('social', 'Nega / Não relatado')}\n- H. Cirúrgica:\n${pComp('cirurgica', 'Nega / Não relatado')}\n- H. Familiar:\n${pComp('familiar', 'Nega / Não relatado')}\n- Medicamentos Uso Domiciliar:\n${pComp('medicamentosa', 'Nega / Não relatado')}\n- Alergias:\n${pComp('alergias', 'Nega / Não relatado')}\n- Histórico de Internações:\n${pComp('internacoes', 'Nega / Não relatado')}\n\n4. EXAMES\nLaboratoriais:\n${bd.simples.laboratoriais.length > 0 ? bd.simples.laboratoriais.join('\n') : 'Sem exames laboratoriais.'}\n\nImagem:\n${pSimp('imagens', 'Sem exames de imagem listados.')}\n\n5. AVALIAÇÃO DIÁRIA E EXAME FÍSICO\nAvaliação Clínica:\n${document.getElementById('avaliacaoClinica').value}\n\nSinais Vitais: ${sv.length > 0 ? sv.join(', ') : "Não aferidos."}\n\nExame Físico:\nEctoscopia: ${document.getElementById('ef_Ect').value}\nAR: ${document.getElementById('ef_AR').value}\nACV: ${document.getElementById('ef_ACV').value}\nABD: ${document.getElementById('ef_ABD').value}\nMMII: ${document.getElementById('ef_MMII').value}\n\n6. HIPÓTESES DIAGNÓSTICAS\n${pSimp('hd', 'Sem hipóteses listadas.')}\n\n7. CONDUTAS / PLANO\n${pSimp('condutas', 'Sem condutas listadas.')}`; 
+            document.getElementById('textoFinal').value = txt; document.getElementById('resultadoArea').style.display = 'block'; document.getElementById('btnCopiar').style.display = 'block'; document.getElementById('resultadoArea').scrollIntoView({behavior: "smooth"}); 
+        }
         function copiarTexto() { const ta = document.getElementById('textoFinal'); ta.select(); navigator.clipboard.writeText(ta.value).then(() => alert("Copiado com sucesso!")); }
     </script>
 </body>
 </html>
+
