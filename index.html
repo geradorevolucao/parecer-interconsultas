@@ -128,12 +128,11 @@
             <button class="btn-escore pronto" onclick="navegar('e-blatchford')">G. Blatchford</button>
             <button class="btn-escore pronto" onclick="navegar('e-apache')">APACHE II</button>
             <button class="btn-escore pronto" onclick="navegar('e-heart')">HEART</button>
-            <button class="btn-escore espera">Hunt Hess (Em breve)</button>
-            <button class="btn-escore espera">Wells (Em breve)</button>
-            <button class="btn-escore espera">PESI (Em breve)</button>
-            <button class="btn-escore espera">Duke (Em breve)</button>
-            <button class="btn-escore espera">CAM-ICU (Em breve)</button>
-            <button class="btn-escore espera">West Haven (Em breve)</button>
+            <button class="btn-escore pronto" onclick="navegar('e-wells')">Wells (TEP)</button>
+            <button class="btn-escore pronto" onclick="navegar('e-pesi')">PESI</button>
+            <button class="btn-escore pronto" onclick="navegar('e-camicu')">CAM-ICU</button>
+            <button class="btn-escore pronto" onclick="navegar('e-whaven')">West Haven</button>
+            <button class="btn-escore espera">Hunt Hess (Brevemente)</button>
         </div>
     </div>
 
@@ -464,6 +463,79 @@
             <div id="res_heart" class="resultado-calc" style="background-color: #fdedec; color: #c0392b;"></div>
         </div>
     </div>
+         <div id="e-wells" class="screen">
+        <div class="card">
+            <h2>Escore de Wells (Embolia Pulmonar)</h2>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-wells" value="3"> Sinais/Sintomas Clínicos de TVP (+3)</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-wells" value="3"> Diagnóstico alternativo menos provável que TEP (+3)</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-wells" value="1.5"> Frequência Cardíaca > 100 bpm (+1.5)</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-wells" value="1.5"> Imobilização ou Cirurgia (≤ 4 semanas) (+1.5)</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-wells" value="1.5"> Episódio prévio de TVP/TEP (+1.5)</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-wells" value="1"> Hemoptise (+1)</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-wells" value="1"> Câncer ativo / em tratamento (+1)</label>
+            </div>
+            <button class="btn-gerar" style="background-color: #c0392b; padding: 12px; margin-top: 16px;" onclick="calcularWells()">Calcular Wells</button>
+            <div id="res_wells" class="resultado-calc" style="background-color: #fdedec; color: #c0392b;"></div>
+        </div>
+    </div>
+
+    <div id="e-pesi" class="screen">
+        <div class="card">
+            <h2>PESI (Pulmonary Embolism Severity Index)</h2>
+            <label>Idade (anos)</label><input type="number" id="pesi_idade">
+            <label>Género</label><select id="pesi_sexo"><option value="10">Masculino (+10)</option><option value="0">Feminino (0)</option></select>
+            <label>Comorbilidades</label>
+            <div style="display:flex; flex-direction:column; gap:8px; margin-top:5px;">
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-pesi" value="30"> Câncer (+30)</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-pesi" value="10"> Insuficiência Cardíaca (+10)</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-pesi" value="10"> Doença Pulmonar Crónica (+10)</label>
+            </div>
+            <label>Sinais Clínicos</label>
+            <div style="display:flex; flex-direction:column; gap:8px; margin-top:5px;">
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-pesi" value="20"> FC ≥ 110 bpm (+20)</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-pesi" value="30"> PA Sistólica < 100 mmHg (+30)</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-pesi" value="20"> FR ≥ 30 irpm (+20)</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-pesi" value="20"> Temp < 36°C (+20)</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-pesi" value="60"> Estado Mental Alterado (+60)</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-pesi" value="20"> SatO2 < 90% (+20)</label>
+            </div>
+            <button class="btn-gerar" style="background-color: #c0392b; padding: 12px; margin-top: 16px;" onclick="calcularPESI()">Calcular PESI</button>
+            <div id="res_pesi" class="resultado-calc" style="background-color: #fdedec; color: #c0392b;"></div>
+        </div>
+    </div>
+
+    <div id="e-camicu" class="screen">
+        <div class="card">
+            <h2>CAM-ICU (Delirium na UTI)</h2>
+            <label>1. Início Agudo ou Curso Flutuante?</label>
+            <select id="cam_1" class="sel-cam"><option value="N">Não</option><option value="S">Sim</option></select>
+            <label>2. Desatenção (Erros no teste de letras/figuras)?</label>
+            <select id="cam_2" class="sel-cam"><option value="N">Não (0-2 erros)</option><option value="S">Sim (> 2 erros)</option></select>
+            <label>3. Nível de Consciência Alterado (RASS ≠ 0)?</label>
+            <select id="cam_3" class="sel-cam"><option value="N">Não (RASS 0)</option><option value="S">Sim (RASS ≠ 0)</option></select>
+            <label>4. Pensamento Desorganizado?</label>
+            <select id="cam_4" class="sel-cam"><option value="N">Não</option><option value="S">Sim</option></select>
+            <button class="btn-gerar" style="background-color: #c0392b; padding: 12px; margin-top: 16px;" onclick="calcularCAM()">Avaliar CAM-ICU</button>
+            <div id="res_cam" class="resultado-calc" style="background-color: #fdedec; color: #c0392b;"></div>
+        </div>
+    </div>
+
+    <div id="e-whaven" class="screen">
+        <div class="card">
+            <h2>Critérios de West Haven (Encefalopatia Hepática)</h2>
+            <label>Estado Clínico do Paciente</label>
+            <select id="s_whaven" style="margin-top: 10px;">
+                <option value="0">Grau 0 - Sem alterações detetáveis</option>
+                <option value="1">Grau 1 - Euforia/Ansiedade, desatenção, bradipsiquia</option>
+                <option value="2">Grau 2 - Letargia, apatia, desorientação temporal, asterixe</option>
+                <option value="3">Grau 3 - Somnolência marcada, desorientação espacial, agressividade</option>
+                <option value="4">Grau 4 - Coma</option>
+            </select>
+            <button class="btn-gerar" style="background-color: #c0392b; padding: 12px; margin-top: 16px;" onclick="calcularWestHaven()">Avaliar Grau</button>
+            <div id="res_wh" class="resultado-calc" style="background-color: #fdedec; color: #c0392b;"></div>
+        </div>
+    </div>   
                 
     <div id="screen-prescricoes" class="screen"><div class="placeholder-box"><h2>Prescrições</h2><p>Área em construção!</p></div></div>
     <div id="screen-pendencias" class="screen"><div class="placeholder-box"><h2>Pendências</h2><p>Área em construção!</p></div></div>
@@ -536,6 +608,10 @@
             'e-blatchford': { titulo: 'Glasgow-Blatchford', voltarPara: 'screen-escores' },
             'e-apache': { titulo: 'APACHE II', voltarPara: 'screen-escores' },
             'e-heart': { titulo: 'Escore HEART', voltarPara: 'screen-escores' },
+            'e-wells': { titulo: 'Wells (TEP)', voltarPara: 'screen-escores' },
+            'e-pesi': { titulo: 'Escore PESI', voltarPara: 'screen-escores' },
+            'e-camicu': { titulo: 'CAM-ICU', voltarPara: 'screen-escores' },
+            'e-whaven': { titulo: 'West Haven', voltarPara: 'screen-escores' },
             'screen-prescricoes': { titulo: 'Prescrições', voltarPara: 'screen-hub' },
             'screen-pendencias': { titulo: 'Pendências', voltarPara: 'screen-hub' }
         };
@@ -722,6 +798,52 @@
             const res = document.getElementById('res_heart');
             let risco = pontos <= 3 ? "Baixo Risco (MACE 0.9 - 1.7%)\nConsiderar Alta precoce." : pontos <= 6 ? "Risco Moderado (MACE 12 - 16.6%)\nInternação/Observação clínica." : "Alto Risco (MACE 50 - 65%)\nManejo agressivo / Estratégia Invasiva.";
             res.innerText = `Escore HEART: ${pontos} pontos\n${risco}`;
+            res.style.display = 'block';
+        }
+        function calcularWells() {
+            const checkboxes = document.querySelectorAll('.cb-wells:checked');
+            let pontos = 0;
+            checkboxes.forEach(cb => pontos += parseFloat(cb.value));
+            const res = document.getElementById('res_wells');
+            let probabilidade = pontos >= 4.5 ? "Alta Probabilidade (TEP Provável)" : "Baixa Probabilidade (TEP Improvável)";
+            res.innerText = `Escore de Wells: ${pontos} pontos\n${probabilidade}`;
+            res.style.display = 'block';
+        }
+
+        function calcularPESI() {
+            let pontos = parseInt(document.getElementById('pesi_idade').value) || 0;
+            pontos += parseInt(document.getElementById('pesi_sexo').value);
+            const checkboxes = document.querySelectorAll('.cb-pesi:checked');
+            checkboxes.forEach(cb => pontos += parseInt(cb.value));
+            
+            const res = document.getElementById('res_pesi');
+            let classe = "";
+            if (pontos <= 65) classe = "Classe I (Risco Muito Baixo)";
+            else if (pontos <= 85) classe = "Classe II (Risco Baixo)";
+            else if (pontos <= 105) classe = "Classe III (Risco Intermediário)";
+            else if (pontos <= 125) classe = "Classe IV (Risco Alto)";
+            else classe = "Classe V (Risco Muito Alto)";
+            
+            res.innerText = `Total PESI: ${pontos} pontos\n${classe}`;
+            res.style.display = 'block';
+        }
+
+        function calcularCAM() {
+            const c1 = document.getElementById('cam_1').value === 'S';
+            const c2 = document.getElementById('cam_2').value === 'S';
+            const c3 = document.getElementById('cam_3').value === 'S';
+            const c4 = document.getElementById('cam_4').value === 'S';
+            const res = document.getElementById('res_cam');
+            
+            const positivo = (c1 && c2) && (c3 || c4);
+            res.innerText = positivo ? "CAM-ICU POSITIVO\n(Presença de Delirium)" : "CAM-ICU NEGATIVO\n(Ausência de Delirium)";
+            res.style.display = 'block';
+        }
+
+        function calcularWestHaven() {
+            const val = document.getElementById('s_whaven').value;
+            const res = document.getElementById('res_wh');
+            res.innerText = `Encefalopatia Hepática: ${val}\n(Segundo Critérios de West Haven)`;
             res.style.display = 'block';
         }
 
