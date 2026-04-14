@@ -124,14 +124,15 @@
             <button class="btn-escore pronto" onclick="navegar('e-grace')">GRACE</button>
             <button class="btn-escore pronto" onclick="navegar('e-timi')">TIMI</button>
             <button class="btn-escore pronto" onclick="navegar('e-child')">Child Pugh</button>
+            <button class="btn-escore pronto" onclick="navegar('e-nihss')">NIHSS</button>
+            <button class="btn-escore pronto" onclick="navegar('e-blatchford')">G. Blatchford</button>
+            <button class="btn-escore pronto" onclick="navegar('e-apache')">APACHE II</button>
+            <button class="btn-escore pronto" onclick="navegar('e-heart')">HEART</button>
             <button class="btn-escore espera">Hunt Hess (Em breve)</button>
-            <button class="btn-escore espera">G. Blatchford (Em breve)</button>
             <button class="btn-escore espera">Wells (Em breve)</button>
             <button class="btn-escore espera">PESI (Em breve)</button>
-            <button class="btn-escore espera">NIHSS (Em breve)</button>
             <button class="btn-escore espera">Duke (Em breve)</button>
             <button class="btn-escore espera">CAM-ICU (Em breve)</button>
-            <button class="btn-escore espera">APACHE II (Em breve)</button>
             <button class="btn-escore espera">West Haven (Em breve)</button>
         </div>
     </div>
@@ -360,6 +361,109 @@
             <div id="res_child" class="resultado-calc" style="background-color: #fdedec; color: #c0392b;"></div>
         </div>
     </div>
+        <div id="e-nihss" class="screen">
+        <div class="card">
+            <h2>Escore NIHSS (AVC Isquêmico)</h2>
+            <label>1a. Nível de Consciência</label><select id="n_1a" class="sel-nihss"><option value="0">0 - Alerta</option><option value="1">1 - Sonolento, mas desperta</option><option value="2">2 - Torporoso</option><option value="3">3 - Coma</option></select>
+            <label>1b. Perguntas (Mês e Idade)</label><select id="n_1b" class="sel-nihss"><option value="0">0 - Responde ambas corretas</option><option value="1">1 - Responde uma correta</option><option value="2">2 - Nenhuma correta</option></select>
+            <label>1c. Comandos (Abrir/fechar olhos e mãos)</label><select id="n_1c" class="sel-nihss"><option value="0">0 - Realiza ambos</option><option value="1">1 - Realiza um</option><option value="2">2 - Nenhum</option></select>
+            <label>2. Olhar Conjugado</label><select id="n_2" class="sel-nihss"><option value="0">0 - Normal</option><option value="1">1 - Paralisia parcial</option><option value="2">2 - Desvio forçado</option></select>
+            <label>3. Campos Visuais</label><select id="n_3" class="sel-nihss"><option value="0">0 - Sem perda</option><option value="1">1 - Hemianopsia parcial</option><option value="2">2 - Hemianopsia completa</option><option value="3">3 - Cegueira bilateral</option></select>
+            <label>4. Paralisia Facial</label><select id="n_4" class="sel-nihss"><option value="0">0 - Normal</option><option value="1">1 - Assimetria leve</option><option value="2">2 - Paralisia parcial</option><option value="3">3 - Paralisia completa</option></select>
+            <label>5. Motor Braços (E / D)</label><div class="row"><div style="flex:1"><select id="n_5a" class="sel-nihss"><option value="0">Esq: 0 - Mantém 10s</option><option value="1">Esq: 1 - Queda antes 10s</option><option value="2">Esq: 2 - Não vence gravidade</option><option value="3">Esq: 3 - Só cai</option><option value="4">Esq: 4 - Sem movimento</option></select></div><div style="flex:1"><select id="n_5b" class="sel-nihss"><option value="0">Dir: 0 - Mantém 10s</option><option value="1">Dir: 1 - Queda antes 10s</option><option value="2">Dir: 2 - Não vence grav</option><option value="3">Dir: 3 - Só cai</option><option value="4">Dir: 4 - Sem movimento</option></select></div></div>
+            <label>6. Motor Pernas (E / D)</label><div class="row"><div style="flex:1"><select id="n_6a" class="sel-nihss"><option value="0">Esq: 0 - Mantém 5s</option><option value="1">Esq: 1 - Queda antes 5s</option><option value="2">Esq: 2 - Não vence gravidade</option><option value="3">Esq: 3 - Só cai</option><option value="4">Esq: 4 - Sem movimento</option></select></div><div style="flex:1"><select id="n_6b" class="sel-nihss"><option value="0">Dir: 0 - Mantém 5s</option><option value="1">Dir: 1 - Queda antes 5s</option><option value="2">Dir: 2 - Não vence grav</option><option value="3">Dir: 3 - Só cai</option><option value="4">Dir: 4 - Sem movimento</option></select></div></div>
+            <label>7. Ataxia Apendicular</label><select id="n_7" class="sel-nihss"><option value="0">0 - Ausente</option><option value="1">1 - Presente em 1 membro</option><option value="2">2 - Presente em 2 membros</option></select>
+            <label>8. Sensibilidade</label><select id="n_8" class="sel-nihss"><option value="0">0 - Normal</option><option value="1">1 - Perda parcial</option><option value="2">2 - Perda severa/total</option></select>
+            <label>9. Linguagem (Afasia)</label><select id="n_9" class="sel-nihss"><option value="0">0 - Normal</option><option value="1">1 - Afasia leve a moderada</option><option value="2">2 - Afasia severa</option><option value="3">3 - Mudo / Afasia global</option></select>
+            <label>10. Disartria</label><select id="n_10" class="sel-nihss"><option value="0">0 - Normal</option><option value="1">1 - Leve a moderada</option><option value="2">2 - Severa (ininteligível)</option></select>
+            <label>11. Extinção / Negligência</label><select id="n_11" class="sel-nihss"><option value="0">0 - Ausente</option><option value="1">1 - Parcial (1 modalidade)</option><option value="2">2 - Completa (> 1 modalidade)</option></select>
+            
+            <button class="btn-gerar" style="background-color: #c0392b; padding: 12px; margin-top: 16px;" onclick="calcularNIHSS()">Calcular NIHSS</button>
+            <div id="res_nihss" class="resultado-calc" style="background-color: #fdedec; color: #c0392b;"></div>
+        </div>
+    </div>
+
+    <div id="e-blatchford" class="screen">
+        <div class="card">
+            <h2>Glasgow-Blatchford (HDA)</h2>
+            <p style="font-size: 13px; color: #666;">Avaliação de risco na Hemorragia Digestiva Alta.</p>
+            
+            <label>Ureia (mg/dL)</label>
+            <select id="gb_ureia" class="sel-gb"><option value="0">< 39</option><option value="2">39 - 47.9</option><option value="3">48 - 59.9</option><option value="4">60 - 149.9</option><option value="6">≥ 150</option></select>
+            
+            <label>Hemoglobina Homens (g/dL)</label>
+            <select id="gb_hb_m" class="sel-gb"><option value="0">≥ 13.0 ou N/A</option><option value="1">12.0 - 12.9</option><option value="3">10.0 - 11.9</option><option value="6">< 10.0</option></select>
+
+            <label>Hemoglobina Mulheres (g/dL)</label>
+            <select id="gb_hb_f" class="sel-gb"><option value="0">≥ 12.0 ou N/A</option><option value="1">10.0 - 11.9</option><option value="6">< 10.0</option></select>
+
+            <label>PA Sistólica (mmHg)</label>
+            <select id="gb_pas" class="sel-gb"><option value="0">≥ 110</option><option value="1">100 - 109</option><option value="2">90 - 99</option><option value="3">< 90</option></select>
+            
+            <label>Outros Fatores (Marque se presentes)</label>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-gb" value="1"> Pulso ≥ 100 bpm (+1)</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-gb" value="1"> Apresentação com Melena (+1)</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-gb" value="2"> Apresentação com Síncope (+2)</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-gb" value="2"> Hepatopatia conhecida (+2)</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-gb" value="2"> Insuficiência Cardíaca conhecida (+2)</label>
+            </div>
+
+            <button class="btn-gerar" style="background-color: #c0392b; padding: 12px; margin-top: 16px;" onclick="calcularBlatchford()">Calcular GBS</button>
+            <div id="res_blatchford" class="resultado-calc" style="background-color: #fdedec; color: #c0392b;"></div>
+        </div>
+    </div>
+
+    <div id="e-apache" class="screen">
+        <div class="card">
+            <h2>APACHE II (UTI)</h2>
+            <p style="font-size: 13px; color: #666;">Use os piores valores das primeiras 24h na UTI.</p>
+            
+            <label>Idade (Anos)</label><select id="ap_idade" class="sel-ap"><option value="0">≤ 44</option><option value="2">45 - 54</option><option value="3">55 - 64</option><option value="5">65 - 74</option><option value="6">≥ 75</option></select>
+            <label>Temperatura (ºC)</label><select id="ap_temp" class="sel-ap"><option value="4">≥ 41.0</option><option value="3">39.0 - 40.9</option><option value="1">38.5 - 38.9</option><option value="0" selected>36.0 - 38.4</option><option value="1">34.0 - 35.9</option><option value="2">32.0 - 33.9</option><option value="3">30.0 - 31.9</option><option value="4">≤ 29.9</option></select>
+            <label>PAM (mmHg)</label><select id="ap_pam" class="sel-ap"><option value="4">≥ 160</option><option value="3">130 - 159</option><option value="2">110 - 129</option><option value="0" selected>70 - 109</option><option value="2">50 - 69</option><option value="4">≤ 49</option></select>
+            <label>Frequência Cardíaca (bpm)</label><select id="ap_fc" class="sel-ap"><option value="4">≥ 180</option><option value="3">140 - 179</option><option value="2">110 - 139</option><option value="0" selected>70 - 109</option><option value="2">55 - 69</option><option value="3">40 - 54</option><option value="4">≤ 39</option></select>
+            <label>Frequência Respiratória (irpm)</label><select id="ap_fr" class="sel-ap"><option value="4">≥ 50</option><option value="3">35 - 49</option><option value="1">25 - 34</option><option value="0" selected>12 - 24</option><option value="1">10 - 11</option><option value="2">6 - 9</option><option value="4">≤ 5</option></select>
+            <label>Oxigenação (PaO2 se FiO2 < 50% ou A-aDO2 se FiO2 ≥ 50%)</label><select id="ap_o2" class="sel-ap"><option value="0" selected>Normal (PaO2 > 70 ou A-aDO2 < 200)</option><option value="1">PaO2 61-70</option><option value="3">PaO2 55-60</option><option value="4">PaO2 < 55</option><option value="2">A-aDO2 200-349</option><option value="3">A-aDO2 350-499</option><option value="4">A-aDO2 ≥ 500</option></select>
+            <label>pH Arterial</label><select id="ap_ph" class="sel-ap"><option value="4">≥ 7.70</option><option value="3">7.60 - 7.69</option><option value="1">7.50 - 7.59</option><option value="0" selected>7.33 - 7.49</option><option value="2">7.25 - 7.32</option><option value="3">7.15 - 7.24</option><option value="4">< 7.15</option></select>
+            <label>Sódio Sérico (mEq/L)</label><select id="ap_na" class="sel-ap"><option value="4">≥ 180</option><option value="3">160 - 179</option><option value="2">155 - 159</option><option value="0" selected>130 - 154</option><option value="2">120 - 129</option><option value="3">111 - 119</option><option value="4">≤ 110</option></select>
+            <label>Potássio Sérico (mEq/L)</label><select id="ap_k" class="sel-ap"><option value="4">≥ 7.0</option><option value="3">6.0 - 6.9</option><option value="1">5.5 - 5.9</option><option value="0" selected>3.5 - 5.4</option><option value="1">3.0 - 3.4</option><option value="2">2.5 - 2.9</option><option value="4">< 2.5</option></select>
+            <label>Creatinina Sérica (mg/dL)</label><select id="ap_cr" class="sel-ap"><option value="4">≥ 3.5</option><option value="3">2.0 - 3.4</option><option value="2">1.5 - 1.9</option><option value="0" selected>0.6 - 1.4</option><option value="2">< 0.6</option></select>
+            <label style="font-weight:normal;"><input type="checkbox" id="ap_lra" style="width:auto; margin:0;"> Lesão Renal Aguda? (Dobra os pontos da Cr)</label>
+            <label>Hematócrito (%)</label><select id="ap_ht" class="sel-ap"><option value="4">≥ 60</option><option value="2">50 - 59.9</option><option value="0" selected>30 - 49.9</option><option value="2">20 - 29.9</option><option value="4">< 20</option></select>
+            <label>Leucócitos (x10³/µL)</label><select id="ap_leuco" class="sel-ap"><option value="4">≥ 40</option><option value="2">20 - 39.9</option><option value="1">15 - 19.9</option><option value="0" selected>3 - 14.9</option><option value="2">1 - 2.9</option><option value="4">< 1</option></select>
+            <label>Glasgow (Pontos a subtrair)</label><select id="ap_gcs" class="sel-ap"><option value="0">15</option><option value="1">14</option><option value="2">13</option><option value="3">12</option><option value="4">11</option><option value="5">10</option><option value="6">9</option><option value="7">8</option><option value="8">7</option><option value="9">6</option><option value="10">5</option><option value="11">4</option><option value="12">3</option></select>
+            <label>Comorbidades Crônicas e Admissão</label><select id="ap_cronico" class="sel-ap"><option value="0">Nenhuma ou Pós-Op Eletivo</option><option value="2">Histórico crônico + Pós-Op Eletivo</option><option value="5">Histórico crônico + Admissão Clínica ou Pós-Op de Emergência</option></select>
+
+            <button class="btn-gerar" style="background-color: #c0392b; padding: 12px; margin-top: 16px;" onclick="calcularAPACHE()">Calcular APACHE II</button>
+            <div id="res_apache" class="resultado-calc" style="background-color: #fdedec; color: #c0392b;"></div>
+        </div>
+    </div>
+
+    <div id="e-heart" class="screen">
+        <div class="card">
+            <h2>Escore HEART (Dor Torácica)</h2>
+            <p style="font-size: 13px; color: #666;">Avaliação de risco na emergência.</p>
+            
+            <label>História (History)</label>
+            <select id="h_hist" class="sel-heart"><option value="0">Pouco suspeita (0)</option><option value="1">Moderadamente suspeita (1)</option><option value="2">Altamente suspeita (2)</option></select>
+            
+            <label>Eletrocardiograma (ECG)</label>
+            <select id="h_ecg" class="sel-heart"><option value="0">Normal (0)</option><option value="1">Alt. inespecíficas / Repolarização (1)</option><option value="2">Desvio de ST significativo (2)</option></select>
+            
+            <label>Idade (Age)</label>
+            <select id="h_age" class="sel-heart"><option value="0">< 45 anos (0)</option><option value="1">45 - 64 anos (1)</option><option value="2">≥ 65 anos (2)</option></select>
+            
+            <label>Fatores de Risco (Risk factors)</label>
+            <select id="h_risk" class="sel-heart"><option value="0">Nenhum (0)</option><option value="1">1 a 2 fatores de risco (1)</option><option value="2">≥ 3 fatores ou DAC prévia (2)</option></select>
+            
+            <label>Troponina (Troponin)</label>
+            <select id="h_trop" class="sel-heart"><option value="0">≤ Limite Normal (0)</option><option value="1">1 a 3x o Limite Normal (1)</option><option value="2">> 3x o Limite Normal (2)</option></select>
+
+            <button class="btn-gerar" style="background-color: #c0392b; padding: 12px; margin-top: 16px;" onclick="calcularHEART()">Calcular HEART</button>
+            <div id="res_heart" class="resultado-calc" style="background-color: #fdedec; color: #c0392b;"></div>
+        </div>
+    </div>
                 
     <div id="screen-prescricoes" class="screen"><div class="placeholder-box"><h2>Prescrições</h2><p>Área em construção!</p></div></div>
     <div id="screen-pendencias" class="screen"><div class="placeholder-box"><h2>Pendências</h2><p>Área em construção!</p></div></div>
@@ -428,6 +532,10 @@
             'e-grace': { titulo: 'Escore GRACE', voltarPara: 'screen-escores' },
             'e-timi': { titulo: 'Escore TIMI', voltarPara: 'screen-escores' },
             'e-child': { titulo: 'Child-Pugh', voltarPara: 'screen-escores' },
+            'e-nihss': { titulo: 'Escore NIHSS', voltarPara: 'screen-escores' },
+            'e-blatchford': { titulo: 'Glasgow-Blatchford', voltarPara: 'screen-escores' },
+            'e-apache': { titulo: 'APACHE II', voltarPara: 'screen-escores' },
+            'e-heart': { titulo: 'Escore HEART', voltarPara: 'screen-escores' },
             'screen-prescricoes': { titulo: 'Prescrições', voltarPara: 'screen-hub' },
             'screen-pendencias': { titulo: 'Pendências', voltarPara: 'screen-hub' }
         };
@@ -559,6 +667,61 @@
             
             let classe = pontos <= 6 ? "Classe A (Doença compensada, S/1 ano: 100%)" : pontos <= 9 ? "Classe B (Comprometimento funcional, S/1 ano: 80%)" : "Classe C (Doença descompensada, S/1 ano: 45%)";
             res.innerText = `Pontos: ${pontos}\nChild-Pugh ${classe}`;
+            res.style.display = 'block';
+        }
+        function calcularNIHSS() {
+            const selects = document.querySelectorAll('.sel-nihss');
+            let pontos = 0;
+            selects.forEach(sel => pontos += parseInt(sel.value));
+            const res = document.getElementById('res_nihss');
+            
+            let gravidade = pontos === 0 ? "Normal" : pontos <= 4 ? "AVC Leve" : pontos <= 15 ? "AVC Moderado" : pontos <= 20 ? "AVC Moderado a Grave" : "AVC Grave";
+            res.innerText = `Escore NIHSS: ${pontos} pontos\nGravidade: ${gravidade}`;
+            res.style.display = 'block';
+        }
+
+        function calcularBlatchford() {
+            const selects = document.querySelectorAll('.sel-gb');
+            let pontos = 0;
+            selects.forEach(sel => pontos += parseInt(sel.value));
+            const checkboxes = document.querySelectorAll('.cb-gb:checked');
+            checkboxes.forEach(cb => pontos += parseInt(cb.value));
+            
+            const res = document.getElementById('res_blatchford');
+            let conduta = pontos === 0 ? "Risco Muito Baixo (0 pts).\nConsiderar alta e EDA ambulatorial." : pontos <= 5 ? "Risco Moderado.\nNecessita internação para estabilização/EDA." : "Alto Risco (>5 pts).\nIndicação de intervenção endoscópica urgente/UTI.";
+            res.innerText = `Escore Glasgow-Blatchford: ${pontos}\n${conduta}`;
+            res.style.display = 'block';
+        }
+
+        function calcularAPACHE() {
+            const selects = document.querySelectorAll('.sel-ap');
+            let pontos = 0;
+            selects.forEach(sel => pontos += parseInt(sel.value));
+            
+            // Regra da Lesão Renal Aguda no APACHE (Dobra a pontuação da Creatinina)
+            if(document.getElementById('ap_lra').checked) {
+                pontos += parseInt(document.getElementById('ap_cr').value);
+            }
+            
+            const res = document.getElementById('res_apache');
+            
+            // Estimativa bruta de mortalidade sem equação longa
+            let mort = "< 4%";
+            if(pontos >= 5) mort = "8%"; if(pontos >= 10) mort = "15%"; if(pontos >= 15) mort = "24%";
+            if(pontos >= 20) mort = "40%"; if(pontos >= 25) mort = "55%"; if(pontos >= 30) mort = "73%"; if(pontos >= 35) mort = "85%";
+            
+            res.innerText = `APACHE II: ${pontos} pontos\nMortalidade Estimada Hospitalar: ~${mort}`;
+            res.style.display = 'block';
+        }
+
+        function calcularHEART() {
+            const selects = document.querySelectorAll('.sel-heart');
+            let pontos = 0;
+            selects.forEach(sel => pontos += parseInt(sel.value));
+            
+            const res = document.getElementById('res_heart');
+            let risco = pontos <= 3 ? "Baixo Risco (MACE 0.9 - 1.7%)\nConsiderar Alta precoce." : pontos <= 6 ? "Risco Moderado (MACE 12 - 16.6%)\nInternação/Observação clínica." : "Alto Risco (MACE 50 - 65%)\nManejo agressivo / Estratégia Invasiva.";
+            res.innerText = `Escore HEART: ${pontos} pontos\n${risco}`;
             res.style.display = 'block';
         }
 
