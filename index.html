@@ -120,10 +120,10 @@
             <button class="btn-escore pronto" onclick="navegar('e-caprini')">Caprini</button>
             <button class="btn-escore pronto" onclick="navegar('e-pps')">PPS</button>
             <button class="btn-escore pronto" onclick="navegar('e-sofa')">SOFA</button>
-            <button class="btn-escore espera">NEWS (Em breve)</button>
-            <button class="btn-escore espera">GRACE (Em breve)</button>
-            <button class="btn-escore espera">TIMI (Em breve)</button>
-            <button class="btn-escore espera">Child Pugh (Em breve)</button>
+            <button class="btn-escore pronto" onclick="navegar('e-news')">NEWS</button>
+            <button class="btn-escore pronto" onclick="navegar('e-grace')">GRACE</button>
+            <button class="btn-escore pronto" onclick="navegar('e-timi')">TIMI</button>
+            <button class="btn-escore pronto" onclick="navegar('e-child')">Child Pugh</button>
             <button class="btn-escore espera">Hunt Hess (Em breve)</button>
             <button class="btn-escore espera">G. Blatchford (Em breve)</button>
             <button class="btn-escore espera">Wells (Em breve)</button>
@@ -245,7 +245,122 @@
             <div id="res_sofa" class="resultado-calc" style="background-color: #fdedec; color: #c0392b;"></div>
         </div>
     </div>
+                
+<div id="e-news" class="screen">
+        <div class="card">
+            <h2>Escore NEWS (Deterioração Clínica)</h2>
+            
+            <label>Frequência Respiratória (irpm)</label>
+            <select id="news_fr" class="sel-news">
+                <option value="3">≤ 8</option><option value="1">9 - 11</option><option value="0" selected>12 - 20</option><option value="2">21 - 24</option><option value="3">≥ 25</option>
+            </select>
 
+            <label>Saturação de O2 (%)</label>
+            <select id="news_spo2" class="sel-news">
+                <option value="3">≤ 91</option><option value="2">92 - 93</option><option value="1">94 - 95</option><option value="0" selected>≥ 96</option>
+            </select>
+
+            <label>Uso de O2 Suplementar?</label>
+            <select id="news_o2" class="sel-news">
+                <option value="0" selected>Não (Ar ambiente)</option><option value="2">Sim</option>
+            </select>
+
+            <label>PA Sistólica (mmHg)</label>
+            <select id="news_pas" class="sel-news">
+                <option value="3">≤ 90</option><option value="2">91 - 100</option><option value="1">101 - 110</option><option value="0" selected>111 - 219</option><option value="3">≥ 220</option>
+            </select>
+
+            <label>Frequência Cardíaca (bpm)</label>
+            <select id="news_fc" class="sel-news">
+                <option value="3">≤ 40</option><option value="1">41 - 50</option><option value="0" selected>51 - 90</option><option value="1">91 - 110</option><option value="2">111 - 130</option><option value="3">≥ 131</option>
+            </select>
+
+            <label>Nível de Consciência</label>
+            <select id="news_avpu" class="sel-news">
+                <option value="0" selected>Alerta (A)</option><option value="3">Confusão nova, Responde à Voz (V), Dor (P) ou Irresponsivo (U)</option>
+            </select>
+
+            <label>Temperatura (ºC)</label>
+            <select id="news_temp" class="sel-news">
+                <option value="3">≤ 35.0</option><option value="1">35.1 - 36.0</option><option value="0" selected>36.1 - 38.0</option><option value="1">38.1 - 39.0</option><option value="2">≥ 39.1</option>
+            </select>
+
+            <button class="btn-gerar" style="background-color: #c0392b; padding: 12px; margin-top: 16px;" onclick="calcularNEWS()">Calcular NEWS</button>
+            <div id="res_news" class="resultado-calc" style="background-color: #fdedec; color: #c0392b;"></div>
+        </div>
+    </div>
+
+    <div id="e-grace" class="screen">
+        <div class="card">
+            <h2>Escore GRACE (SCA)</h2>
+            <p style="font-size: 13px; color: #666;">Mortalidade intra-hospitalar.</p>
+            
+            <label>Idade</label>
+            <select id="grace_idade" class="sel-grace"><option value="0">< 30</option><option value="8">30-39</option><option value="25">40-49</option><option value="41">50-59</option><option value="58" selected>60-69</option><option value="75">70-79</option><option value="91">80-89</option><option value="100">≥ 90</option></select>
+            
+            <label>Frequência Cardíaca (bpm)</label>
+            <select id="grace_fc" class="sel-grace"><option value="0">< 50</option><option value="3">50-69</option><option value="9" selected>70-89</option><option value="15">90-109</option><option value="24">110-149</option><option value="38">150-199</option><option value="46">≥ 200</option></select>
+            
+            <label>PA Sistólica (mmHg)</label>
+            <select id="grace_pas" class="sel-grace"><option value="58">< 80</option><option value="53">80-99</option><option value="43">100-119</option><option value="34" selected>120-139</option><option value="24">140-159</option><option value="10">160-199</option><option value="0">≥ 200</option></select>
+            
+            <label>Creatinina (mg/dL)</label>
+            <select id="grace_cr" class="sel-grace"><option value="1">0 - 0.39</option><option value="4" selected>0.4 - 0.79</option><option value="7">0.8 - 1.19</option><option value="10">1.2 - 1.59</option><option value="13">1.6 - 1.99</option><option value="21">2.0 - 3.99</option><option value="28">≥ 4.0</option></select>
+            
+            <label>Classe Killip</label>
+            <select id="grace_killip" class="sel-grace"><option value="0" selected>I (Sem ICC)</option><option value="20">II (B3, estertores basais)</option><option value="39">III (Edema Agudo de Pulmão)</option><option value="59">IV (Choque Cardiogênico)</option></select>
+            
+            <div style="display:flex; flex-direction:column; gap:8px; margin-top: 12px;">
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-grace" value="39"> Parada Cardíaca na Admissão</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-grace" value="28"> Desvio do segmento ST</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-grace" value="14"> Marcadores de necrose miocárdica elevados</label>
+            </div>
+
+            <button class="btn-gerar" style="background-color: #c0392b; padding: 12px; margin-top: 16px;" onclick="calcularGRACE()">Calcular GRACE</button>
+            <div id="res_grace" class="resultado-calc" style="background-color: #fdedec; color: #c0392b;"></div>
+        </div>
+    </div>
+
+    <div id="e-timi" class="screen">
+        <div class="card">
+            <h2>Escore TIMI (NSTEMI / Angina Instável)</h2>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-timi" value="1"> Idade ≥ 65 anos</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-timi" value="1"> ≥ 3 Fatores de risco para DAC (HAS, DM, DLP, Tabagismo, História Familiar)</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-timi" value="1"> Uso de AAS nos últimos 7 dias</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-timi" value="1"> Angina severa (≥ 2 episódios em 24h)</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-timi" value="1"> DAC conhecida (Estenose ≥ 50%)</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-timi" value="1"> Desvio do segmento ST ≥ 0.5mm</label>
+                <label style="font-weight:normal; margin:0;"><input type="checkbox" class="cb-timi" value="1"> Marcadores cardíacos elevados (Troponina/CK-MB)</label>
+            </div>
+            <button class="btn-gerar" style="background-color: #c0392b; padding: 12px; margin-top: 16px;" onclick="calcularTIMI()">Calcular TIMI</button>
+            <div id="res_timi" class="resultado-calc" style="background-color: #fdedec; color: #c0392b;"></div>
+        </div>
+    </div>
+
+    <div id="e-child" class="screen">
+        <div class="card">
+            <h2>Escore Child-Pugh (Cirrose)</h2>
+            <label>Bilirrubina Total (mg/dL)</label>
+            <select id="child_bili" class="sel-child"><option value="1">< 2</option><option value="2">2 - 3</option><option value="3">> 3</option></select>
+            
+            <label>Albumina (g/dL)</label>
+            <select id="child_alb" class="sel-child"><option value="1">> 3.5</option><option value="2">2.8 - 3.5</option><option value="3">< 2.8</option></select>
+            
+            <label>RNI (INR)</label>
+            <select id="child_inr" class="sel-child"><option value="1">< 1.7</option><option value="2">1.7 - 2.3</option><option value="3">> 2.3</option></select>
+            
+            <label>Ascite</label>
+            <select id="child_ascite" class="sel-child"><option value="1">Ausente</option><option value="2">Leve / Moderada</option><option value="3">Grave / Refratária</option></select>
+            
+            <label>Encefalopatia</label>
+            <select id="child_encef" class="sel-child"><option value="1">Ausente</option><option value="2">Grau I - II</option><option value="3">Grau III - IV</option></select>
+            
+            <button class="btn-gerar" style="background-color: #c0392b; padding: 12px; margin-top: 16px;" onclick="calcularChild()">Calcular Child-Pugh</button>
+            <div id="res_child" class="resultado-calc" style="background-color: #fdedec; color: #c0392b;"></div>
+        </div>
+    </div>
+                
     <div id="screen-prescricoes" class="screen"><div class="placeholder-box"><h2>Prescrições</h2><p>Área em construção!</p></div></div>
     <div id="screen-pendencias" class="screen"><div class="placeholder-box"><h2>Pendências</h2><p>Área em construção!</p></div></div>
 
@@ -309,6 +424,10 @@
             'e-caprini': { titulo: 'Escore de Caprini', voltarPara: 'screen-escores' },
             'e-pps': { titulo: 'PPS', voltarPara: 'screen-escores' },
             'e-sofa': { titulo: 'Escore SOFA', voltarPara: 'screen-escores' },
+            'e-news': { titulo: 'Escore NEWS', voltarPara: 'screen-escores' },
+            'e-grace': { titulo: 'Escore GRACE', voltarPara: 'screen-escores' },
+            'e-timi': { titulo: 'Escore TIMI', voltarPara: 'screen-escores' },
+            'e-child': { titulo: 'Child-Pugh', voltarPara: 'screen-escores' },
             'screen-prescricoes': { titulo: 'Prescrições', voltarPara: 'screen-hub' },
             'screen-pendencias': { titulo: 'Pendências', voltarPara: 'screen-hub' }
         };
@@ -388,6 +507,58 @@
             selects.forEach(sel => pontos += parseInt(sel.value));
             const res = document.getElementById('res_sofa');
             res.innerText = `Escore SOFA Total: ${pontos} pontos\n` + (pontos >= 2 ? "Critério para disfunção orgânica (Sepsis-3) preenchido se associado a infecção suspeita." : "Não preenche critérios isolados para disfunção aguda (> 2pts).");
+            res.style.display = 'block';
+        }
+        function calcularNEWS() {
+            const selects = document.querySelectorAll('.sel-news');
+            let pontos = 0; let redScore = false;
+            selects.forEach(sel => { 
+                let val = parseInt(sel.value); 
+                pontos += val; 
+                if(val === 3) redScore = true; 
+            });
+            const res = document.getElementById('res_news');
+            let conduta = "";
+            if(pontos <= 4 && !redScore) conduta = "Baixo Risco. Avaliação em até 12h.";
+            else if(pontos === 5 || pontos === 6 || redScore) conduta = "Médio Risco. Revisão urgente pela equipe/médico. Avaliação horária.";
+            else conduta = "Alto Risco. Avaliação imediata (Time de Resposta Rápida). Considerar UTI.";
+            
+            res.innerText = `NEWS: ${pontos} pontos\n${conduta}`;
+            res.style.display = 'block';
+        }
+
+        function calcularGRACE() {
+            const selects = document.querySelectorAll('.sel-grace');
+            let pontos = 0;
+            selects.forEach(sel => pontos += parseInt(sel.value));
+            const checkboxes = document.querySelectorAll('.cb-grace:checked');
+            checkboxes.forEach(cb => pontos += parseInt(cb.value));
+            
+            const res = document.getElementById('res_grace');
+            let risco = pontos <= 108 ? "Risco Baixo (< 1% mort.)" : pontos <= 140 ? "Risco Intermediário (1-3% mort.)" : "Risco Alto (> 3% mort.)";
+            res.innerText = `Pontuação GRACE: ${pontos}\n${risco}`;
+            res.style.display = 'block';
+        }
+
+        function calcularTIMI() {
+            const checkboxes = document.querySelectorAll('.cb-timi:checked');
+            let pontos = 0;
+            checkboxes.forEach(cb => pontos += parseInt(cb.value));
+            const res = document.getElementById('res_timi');
+            
+            let conduta = pontos <= 2 ? "Baixo Risco (Mortalidade/IAM a 14 dias: < 8.3%)" : pontos <= 4 ? "Risco Intermediário (Mortalidade/IAM a 14 dias: 13-19.9%)" : "Alto Risco (Mortalidade/IAM a 14 dias: > 26%)";
+            res.innerText = `Escore TIMI: ${pontos}\n${conduta}`;
+            res.style.display = 'block';
+        }
+
+        function calcularChild() {
+            const selects = document.querySelectorAll('.sel-child');
+            let pontos = 0;
+            selects.forEach(sel => pontos += parseInt(sel.value));
+            const res = document.getElementById('res_child');
+            
+            let classe = pontos <= 6 ? "Classe A (Doença compensada, S/1 ano: 100%)" : pontos <= 9 ? "Classe B (Comprometimento funcional, S/1 ano: 80%)" : "Classe C (Doença descompensada, S/1 ano: 45%)";
+            res.innerText = `Pontos: ${pontos}\nChild-Pugh ${classe}`;
             res.style.display = 'block';
         }
 
