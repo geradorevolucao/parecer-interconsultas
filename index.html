@@ -585,6 +585,33 @@
     </div>
 
    <div id="screen-infusoes" class="screen">
+       <div class="card" style="background-color: #fff9f5; border: 1px solid #e67e22;">
+            <h2 style="border-bottom: 2px solid #e67e22; color: #d35400;">Panorama Geral de Infusões</h2>
+            <p style="font-size: 13px; color: #666;">Insira o peso para gerar as doses (mL/h) das diluições padrão do seu serviço.</p>
+            
+            <div class="row">
+                <div><label>Peso do Paciente (kg)</label><input type="number" id="panorama_peso" placeholder="Ex: 70" step="0.1"></div>
+            </div>
+            
+            <button class="btn-gerar" style="background-color: #e67e22; padding: 12px; margin-top: 16px;" onclick="gerarPanorama()">Gerar Tabela Rápida</button>
+            
+            <div id="res_panorama" style="display:none; margin-top: 16px; overflow-x: auto; background: white; padding: 10px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; min-width: 400px;">
+                    <thead>
+                        <tr style="background-color: #d35400; color: white;">
+                            <th style="padding: 8px; border-radius: 6px 0 0 0;">Medicação (Padrão)</th>
+                            <th style="padding: 8px;">Dose Min</th>
+                            <th style="padding: 8px;">mL/h</th>
+                            <th style="padding: 8px;">Dose Max</th>
+                            <th style="padding: 8px; border-radius: 0 6px 0 0;">mL/h</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tb_panorama">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+       
         <div class="card">
             <h2>DVA: Noradrenalina</h2>
             
@@ -967,6 +994,42 @@
         function toggleNoraDilu() {
             const tipo = document.getElementById('nora_tipo').value;
             document.getElementById('nora_custom_fields').style.display = (tipo === 'custom') ? 'block' : 'none';
+        }
+        function gerarPanorama() {
+            const peso = parseFloat(document.getElementById('panorama_peso').value);
+            if(!peso) { alert("Informe o peso do paciente para gerar o panorama."); return; }
+
+            const tabela = document.getElementById('tb_panorama');
+            tabela.innerHTML = "";
+
+            // Banco de Dados das Diluições Padrão (Vamos ajustar com as suas!)
+            const drogas = [
+                // DVAs (Dose em mcg/kg/min)
+                { nome: "Noradrenalina", padrao: "5 amp + 180ml SG5% (100 mcg/mL)", min: 0.05, max: 1.0, unidade: "mcg/kg/min", calc: (d,p) => (d * p * 60) / 100 },
+                { nome: "Dobutamina", padrao: "1 amp + 230ml SG5% (1000 mcg/mL)", min: 2.5, max: 20.0, unidade: "mcg/kg/min", calc: (d,p) => (d * p * 60) / 1000 },
+                
+                // Sedoanalgesia (Dose em mcg/kg/h ou mg/kg/h)
+                { nome: "Fentanil", padrao: "2 amp + 80ml SF (10 mcg/mL)", min: 0.5, max: 3.0, unidade: "mcg/kg/h", calc: (d,p) => (d * p) / 10 },
+                { nome: "Midazolam", padrao: "3 amp + 85ml SF (0.45 mg/mL)", min: 0.05, max: 0.2, unidade: "mg/kg/h", calc: (d,p) => (d * p) / 0.45 },
+                { nome: "Propofol a 1%", padrao: "Puro (10 mg/mL)", min: 0.3, max: 3.0, unidade: "mg/kg/h", calc: (d,p) => (d * p) / 10 }
+            ];
+
+            drogas.forEach(dr => {
+                const mlhMin = dr.calc(dr.min, peso).toFixed(1);
+                const mlhMax = dr.calc(dr.max, peso).toFixed(1);
+                
+                tabela.innerHTML += `
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 10px 8px;"><b>${dr.nome}</b><br><span style="font-size:10px; color:#7f8c8d;">${dr.padrao}</span></td>
+                        <td style="padding: 10px 8px;">${dr.min} <span style="font-size:9px; color:#999;">${dr.unidade}</span></td>
+                        <td style="padding: 10px 8px; font-weight:bold; color:#27ae60; background-color:#e8f8f5;">${mlhMin}</td>
+                        <td style="padding: 10px 8px;">${dr.max} <span style="font-size:9px; color:#999;">${dr.unidade}</span></td>
+                        <td style="padding: 10px 8px; font-weight:bold; color:#c0392b; background-color:#fdedec;">${mlhMax}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById('res_panorama').style.display = 'block';
         }
 
         function calcularNoraAvancado() {
