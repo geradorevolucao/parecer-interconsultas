@@ -645,6 +645,7 @@
         </div>
        
        <div class="card">
+           
             <h2>DVA: Dobutamina</h2>
             <div class="row">
                 <div><label>Peso (kg)</label><input type="number" id="dobuta_peso" placeholder="kg"></div>
@@ -665,6 +666,7 @@
             </div>
 
             <button class="btn-gerar" style="background-color: #d35400; padding: 12px; margin-top: 16px;" onclick="calcularDobutaAvancado()">Calcular Infusão</button>
+           
             <div id="res_dobuta" class="resultado-calc" style="background-color: #fbeee6; color: #d35400;"></div>
 
             <div id="info_dobuta" style="margin-top:15px; font-size:12px; display:none; border-top:1px solid #eee; padding-top:10px;">
@@ -1089,7 +1091,7 @@
             function toggleDobutaDilu() {
             const tipo = document.getElementById('dobuta_tipo').value;
             document.getElementById('dobuta_custom_fields').style.display = (tipo === 'custom') ? 'block' : 'none';
-        }
+            }
 
         function calcularDobutaAvancado() {
             const peso = parseFloat(document.getElementById('dobuta_peso').value);
